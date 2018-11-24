@@ -12,26 +12,26 @@ const FizzBuzzApp = {
         let _this = this,
             {i, wordCreatorFn} = opts,
             word;
-        switch (true) {
-            case (i % 3) === 0 && (i % 5) === 0:
-                word = _this.defaultWords.x3x5;
-                break;
+        try {
+            switch (true) {
+                case (i % 3) === 0 && (i % 5) === 0:
+                    word = _this.defaultWords.x3x5;
+                    break;
 
-            case (i % 3) === 0 && (i % 5) !== 0:
-                word = _this.defaultWords.x3;
-                break;
+                case (i % 3) === 0 && (i % 5) !== 0:
+                    word = _this.defaultWords.x3;
+                    break;
 
-            case (i % 3) !== 0 && (i % 5) === 0:
-                word = _this.defaultWords.x5;
-                break;
+                case (i % 3) !== 0 && (i % 5) === 0:
+                    word = _this.defaultWords.x5;
+                    break;
 
-            default:
-                try {
+                default:
                     word = wordCreatorFn({ withErrors: true });
-                } catch (e) {
-                    word = _this.defaultWords.error;
-                }
-                break;
+                    break;
+            }
+        } catch (e) {
+            word = _this.defaultWords.error;
         }
         return word;
     },
