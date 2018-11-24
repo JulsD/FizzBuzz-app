@@ -1,10 +1,8 @@
 const { getRandomWordSync, getRandomWord } = require('word-maker');
 
-console.log('It works!');
-
 const FizzBuzzApp = {
     defaultWords: {
-        x3: 'Fizz!',
+        x3: 'Fizz',
         x5: 'Buzz',
         x3x5: 'FizzBuzz',
         error: 'Doh!'
@@ -31,7 +29,7 @@ const FizzBuzzApp = {
                 try {
                     word = wordCreatorFn({ withErrors: true });
                 } catch (e) {
-                    word = _this.defaultWords.x3.error;
+                    word = _this.defaultWords.error;
                 }
                 break;
         }
@@ -53,7 +51,7 @@ const FizzBuzzApp = {
             if(word.then) {
                 word
                 .then( word => console.log(`${i}: ${word}`) )
-                .catch( error => console.log(`${i}: ${_this.errorWord}`) );
+                .catch( error => console.log(`${i}: ${_this.defaultWords.error}`) );
             } else {
                 console.log(`${i}: ${word}`);
             }
@@ -61,5 +59,10 @@ const FizzBuzzApp = {
     }
 }
 
+console.log('======= Synchronous =======');
 FizzBuzzApp.printNumericItems(100);
+
+console.log('======= Asynchronous =======');
 FizzBuzzApp.printNumericItemsAsync(100);
+
+console.log('It works!');
