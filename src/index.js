@@ -3,6 +3,13 @@ const { getRandomWordSync, getRandomWord } = require('word-maker');
 console.log('It works!');
 
 const FizzBuzzApp = {
+    defaultWords: {
+        x3: 'Fizz!',
+        x5: 'Buzz',
+        x3x5: 'FizzBuzz',
+        error: 'Doh!'
+    },
+
     generateWord: function(opts) {
         let {i, wordCreatorFn} = opts,
             word;
