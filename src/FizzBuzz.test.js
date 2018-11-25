@@ -1,5 +1,4 @@
 const FizzBuzzApp = require('./FizzBuzz');
-const { getRandomWordSync, getRandomWord } = require('word-maker');
 const testWordGenerator = () => {
     return 'World'
 }
@@ -13,7 +12,7 @@ describe('generateWord function should:', () => {
         expect(FizzBuzzApp.generateWord({i:5, wordCreatorFn: testWordGenerator})).toBe('Buzz');
     });
     
-    test('for multiples of five or three, print "FizzBuzz"', () => {
+    test('for multiples of five and three, print "FizzBuzz"', () => {
         expect(FizzBuzzApp.generateWord({i:15, wordCreatorFn: testWordGenerator})).toBe('FizzBuzz');
     });
     
@@ -54,7 +53,7 @@ describe('printNumericItems function should:', () => {
         expect(dataObj["5"]).toBe("Buzz");
     });
 
-    test('return "Buzz" word for the "15" key', () => {
+    test('return "FizzBuzz" word for the "15" key', () => {
         expect(dataObj["15"]).toBe("FizzBuzz");
     });
 });
@@ -72,7 +71,7 @@ describe('printNumericItemsAsync function should:', () => {
 
     test('return a Promise', () => {
         dataPromise.then(result => {
-            expect(result.then).toBeTruthy();
+            expect(result).toBeInstanceOf(Promise);
         });
     });
 
@@ -84,7 +83,7 @@ describe('printNumericItemsAsync function should:', () => {
         });
     });
     
-    test('return "Fizz" word for the "3" key', () => {
+    test('return a Promise which returns "Fizz" word for the "3" key', () => {
         dataPromise.then(promiseExp => {
             promiseExp.then(data => {
                 expect(dataObj["3"]).toBe("Fizz");
@@ -92,7 +91,7 @@ describe('printNumericItemsAsync function should:', () => {
         });
     });
 
-    test('return "Buzz" word for the "5" key', () => {
+    test('return a Promise which returns "Buzz" word for the "5" key', () => {
         dataPromise.then(promiseExp => {
             promiseExp.then(data => {
                 expect(dataObj["5"]).toBe("Buzz");
@@ -100,7 +99,7 @@ describe('printNumericItemsAsync function should:', () => {
         });
     });
 
-    test('return "Buzz" word for the "15" key', () => {
+    test('return a Promise which returns "Buzz" word for the "15" key', () => {
         dataPromise.then(promiseExp => {
             promiseExp.then(data => {
                 expect(dataObj["15"]).toBe("FizzBuzz");
