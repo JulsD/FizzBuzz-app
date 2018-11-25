@@ -30,9 +30,11 @@ const FizzBuzzApp = {
                     word = wordCreatorFn({ withErrors: true });
                     break;
             }
+
         } catch (e) {
             word = _this.defaultWords.error;
         }
+
         return word;
     },
 
