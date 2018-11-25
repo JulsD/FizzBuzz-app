@@ -1,11 +1,30 @@
 const FizzBuzzApp = require('./FizzBuzz');
-
-let results = {};
+const fetch = require('node-fetch');
 
 console.log('It works!');
 
-console.log('======= Synchronous =======');
-FizzBuzzApp.printNumericItems(100);
+let dataSynchronous = FizzBuzzApp.printNumericItems(5),
+    dataAsynchronous = FizzBuzzApp.printNumericItemsAsync(5);
 
-console.log('======= Asynchronous =======');
-FizzBuzzApp.printNumericItemsAsync(100);
+Promise.all([dataSynchronous, dataAsynchronous])
+.then(
+    result => {
+        fetch('https://httpbin.org/post', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(result)
+        })
+        .then(res => {
+            console.log(res.ok);
+            console.log(res.status);
+            console.log(res.statusText);
+        })
+        .catch(err => console.error(err));
+    },
+    error => {
+        console.log('Something goes wrong: ', error);
+    }
+);
