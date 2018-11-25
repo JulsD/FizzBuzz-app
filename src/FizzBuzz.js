@@ -38,28 +38,40 @@ const FizzBuzzApp = {
 
     printNumericItems: function(n) {
         let _this = this,
-            result;
+            data = {};
 
         for(let i = 1; i <=n; i++) {
             let word = _this.generateWord({i, wordCreatorFn: getRandomWordSync});
-            console.log(`${i}: ${word}`);
+            data[i] = word;
         }
 
-        return result;
+        return data;
     },
 
     printNumericItemsAsync: function(n) {
-        let _this = this;
+        let _this = this,
+            wordGeneratorQ = [],
+            data = {};
         for(let i = 1; i <=n; i++) {
             let word = _this.generateWord({i, wordCreatorFn: getRandomWord});
             if(word.then) {
-                word
-                .then( word => console.log(`${i}: ${word}`) )
-                .catch( error => console.log(`${i}: ${_this.defaultWords.error}`) );
+                wordGeneratorQ.push(word
+                    .then( word => data[i] = word )
+                    .catch( error => data[i] = _this.defaultWords.error ));
             } else {
-                console.log(`${i}: ${word}`);
+                data[i] = word;
             }
         }
+
+        return Promise.all(wordGeneratorQ)
+            .then((results) => {
+                return new Promise((resolve, reject) => { 
+                    resolve(data)
+                });
+            },
+            (error) => {
+                console.log('Something goes wrong: ', error);
+            });
     }
 };
 
