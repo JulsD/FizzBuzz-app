@@ -12,9 +12,7 @@ Promise.all([dataSynchronous, dataAsynchronous])
         let jsonResult = JSON.stringify(result, null, 4);
         postData(jsonResult)
         .then(res => {
-            console.log(res.ok);
-            console.log(res.status);
-            console.log(res.statusText);
+            console.log(`Response from server is ${res.status} ${res.statusText}`);
         })
         .catch(err => console.error(err));
 
