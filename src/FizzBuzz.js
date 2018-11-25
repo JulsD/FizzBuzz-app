@@ -14,15 +14,15 @@ const FizzBuzzApp = {
             word;
         try {
             switch (true) {
-                case (i % 3) === 0 && (i % 5) === 0:
+                case (i % (3 * 5)) === 0:
                     word = _this.defaultWords.x3x5;
                     break;
 
-                case (i % 3) === 0 && (i % 5) !== 0:
+                case (i % 3) === 0:
                     word = _this.defaultWords.x3;
                     break;
 
-                case (i % 3) !== 0 && (i % 5) === 0:
+                case (i % 5) === 0:
                     word = _this.defaultWords.x5;
                     break;
 
