@@ -3,13 +3,13 @@ const { postData, writeDataToFile } = require('./dataServices');
 
 console.log('It works!');
 
-let dataSynchronous = FizzBuzzApp.printNumericItems(15),
-    dataAsynchronous = FizzBuzzApp.printNumericItemsAsync(15);
+let dataSynchronous = FizzBuzzApp.printNumericItems(100),
+    dataAsynchronous = FizzBuzzApp.printNumericItemsAsync(100);
 
 Promise.all([dataSynchronous, dataAsynchronous])
 .then(
     result => {
-        let jsonResult = JSON.stringify(result);
+        let jsonResult = JSON.stringify(result, null, 4);
         postData(jsonResult)
         .then(res => {
             console.log(res.ok);
